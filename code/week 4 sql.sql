@@ -36,7 +36,7 @@ VALUES
 	('2024-10-01 08:00 +9', '1 month'),
 	('2024-10-31 00:00 Australia/Melbourne', '1 century'),
 	(now(),'1 week');
-SELECT * FROM date_time_types;
+--SELECT * FROM date_time_types;--
 SELECT
     timestamp_col,
 	interval_col,
@@ -52,4 +52,4 @@ SELECT numeric_column,
 	CAST(numeric_column AS text)
 FROM num_data_types;
 
-SELECT CAST(char_column AS integer) FROM char_data_types;
+--SELECT CAST(char_column AS integer) FROM char_data_types;--
