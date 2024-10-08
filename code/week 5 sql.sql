@@ -79,3 +79,96 @@ WHERE 학년 = 2 AND 소속학과 = '컴퓨터';
 SELECT 이름, 학년, 소속학과, 휴대폰번호 FROM 학생
 WHERE (학년 BETWEEN 1 AND 3) OR NOT 소속학과 = '컴퓨터';
 
+SELECT 이름, 학년, 소속학과 FROM 학생
+WHERE 소속학과 = '컴퓨터' OR 소속학과 = '정보통신'
+ORDER BY 학년 DESC;
+
+SELECT * FROM 학생
+ORDER BY 학년 ASC, 이름 DESC
+LIMIT 3;
+
+
+--집계 함수
+SELECT COUNT(*) FROM 학생;
+SELECT COUNT(주소) FROM 학생;
+
+
+SELECT AVG(나이) 남학생평균나이 FROM 학생
+WHERE 성별 = '남';
+
+SELECT 성별, MAX(나이) 최고나이, MIN(나이) 최저나이 FROM 학생
+GROUP BY 성별;
+
+SELECT 나이, COUNT(*) 나이별 FROM 학생
+GROUP BY 나이 ORDER BY 나이 DESC;
+
+
+SELECT 학년, COUNT(*) 학년별 FROM 학생 
+GROUP BY 학년
+HAVING COUNT(*) >= 2
+ORDER BY 학년 DESC;
+
+
+--데이터 검색하기 
+SELECT 학번, 이름 FROM 학생 
+WHERE 이름 LIKE '이%';
+
+SELECT 이름, 휴대폰번호 FROM 학생
+WHERE 휴대폰번호 LIKE '%22%';
+
+SELECT 이름,주소 FROM 학생
+WHERE 주소 IS NULL;
+
+SELECT 학번 FROM 학생 WHERE 성별 = '여'
+UNION
+SELECT 학번 FROM 수강 WHERE 평가학점 = 'A';
+
+SELECT 이름 FROM 학생
+WHERE 이름 IN ('홍길동','홍길순');
+
+--JOIN
+SELECT * FROM 학생,수강;
+SELECT * FROM 학생 CROSS JOIN 수강;
+
+--상대평가 계산
+SElECT 학생.학번,과목번호,중간성적,중간성적 +(중간성적 * 0.1) AS 변환중간성적
+FROM 학생 JOIN 수강 ON 학생.학번 = 수강.학번
+WHErE '과목번호' ='c002'
+
+
+--테이블 3개 조인
+SELECT 학생.학번,학생.이름,수강.과목번호
+FROM (학생 JOIN 수강 ON 학생.학번 = 수강.학번) JOIN 과목 ON 수강.과목번호 = 과목.과목번호
+WHERE 과목.이름 = '정보보호';
+
+
+--OUTER JOINS
+SELECT 학생.학번,이름,평가학점
+FROM 학생 LEFT OUTER JOIN 수강 ON 학생.학번 = 수강.학번
+ORDER BY 학생.학번;
+
+SELECT H.학번 AS B,이름,평가학점
+FROM 학생 AS  H RIGHT OUTER JOIN 수강 AS  S ON H.학번 = S.학번
+ORDER BY B;
+
+SELECT H.학번 AS B,이름,평가학점
+FROM 학생 AS  H FULL OUTER JOIN 수강 AS  S ON H.학번 = S.학번
+ORDER BY B;
+
+
+
+TABLE 학생;
+--UPDATE
+UPDATE 학생 
+SET 주소 = '대전대학교'
+WHERE 학번 = 's002'
+
+TABLE 학생;
+
+UPDATE 학생
+SET 학년 = 학년 + 1, 소속학과 = '자유전공학부'
+WHERE 학년 = 4;
+--DELETE
+DELETE FROM 학생
+WHERE 이름 = '이승엽';
+
