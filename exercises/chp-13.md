@@ -60,7 +60,7 @@ ADD 탈퇴 날짜 DATETIME;
 DROP TABLE 회원;
 ```
 
-1. ___
+1. `db.회원.insertOne({_id: 1, 나이: null, 성별: null, 메모: null});`
 2. ___
 3. db.회원.drop()
 
@@ -102,15 +102,16 @@ WHERE 성별="여"
 ```
 
 1. db.회원.insertOne({_id: "m111", 나이: 55, 성별: "남"});
-2. ___
+2. `db.회원.insertOne({_id: "m222", 나이: null, 성별: null, 메모: "임시 회원임"});`
 3. db.회원.find();
-4. ___
-5. ___
+4. `db.회원.find({성별: {$ne: "남"}}, {_id: 1, 성별: 1});`
+5. `db.회원.find({성별: "남"}).sort({나이: 1});`
 6. db.회원.find({_id:{$exist:true}}).count();
-7. ___
+7. `db.회원.updateMany({나이: {$gt: 25}}, {$set: {성별: "여"}});`
 8. db.회원.deleteMany({});
-9. ___
+9. `db.회원.deleteMany({성별: "여"});`
 
 **10 4가지 NoSQL 데이터베이스 유형의 특성을 비교 • 요약하시오.**
-
-**11 몽고DB와 관계형 데이터베이스를 비교 • 설명하시오.**
+문서 지향 DB:
+    1. JSON, BSON 등의 문서로 저장
+    2. 스키마가 고정되어합
