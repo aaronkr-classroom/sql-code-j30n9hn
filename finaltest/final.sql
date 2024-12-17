@@ -44,3 +44,4 @@ CREATE TABLE 학생 (
 CREATE TABLE 멘토링 ( 
 	학번 CHAR(4) NOT NULL,
 	PRIMARY KEY (학번)
+);
